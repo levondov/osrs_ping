@@ -15,10 +15,10 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $.ajax({
-             url : "test.txt",
+             url : "http://52.53.209.19/osrs_ping/test.txt",
             dataType: "text",
             success : function (data) {
-               $("#text").html(data);
+               $("#test").html(data);
             }
         });
     }); 
