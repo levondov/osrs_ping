@@ -16,7 +16,7 @@ def ping_world(world):
 	world = world[0:len(world)-2]
     address = "oldschool" + world + ".runescape.com"
     ping_resp = subprocess.Popen(["/bin/ping", "-c1", "-w100", address], stdout=subprocess.PIPE)
-    return ping_resp.communicate()[0].split('\n')[5][4:]
+    return ping_resp.communicate()[0].split('\n')[5][4:].split('\')[4]
 
 def main():
     pings = ['None']*len(worlds)
@@ -32,7 +32,7 @@ def main():
         else: # = 4
             world_type = "<img src=""images/p2p_icon.png""> (PVP) World "
 
-        pings[i] = world_type + str(world)[0:-2] + ": " + ping_world(int(world)) + " <br> "
+        pings[i] = world_type + str(world)[0:-2] + ": " + ping_world(int(world)) + " ms <br> "
 
     f = open('test.txt', 'w')        
     for ping in pings:
