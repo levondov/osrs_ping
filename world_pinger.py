@@ -52,7 +52,7 @@ def main():
     
     # finally put it all together
     for i,world in enumerate(worlds):
-        total[i] = world_icon[i] + "World " + str(world[0:-2]) + ": " + world_best[i] + " ms <br>"
+        total[i] = world_icon[i] + "World " + str(world)[0:-2] + ": " + world_best[i] + " ms <br>"
 
     f = open('test.txt', 'w')        
     for each_world in total:
