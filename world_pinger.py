@@ -16,7 +16,7 @@ def ping_world(world):
 	world = world[0:len(world)-2]
     address = "oldschool" + world + ".runescape.com"
     ping_resp = subprocess.Popen(["/bin/ping", "-c1", "-w100", address], stdout=subprocess.PIPE)
-    return ping_resp.communicate()[0].split('\n')[5][4:].split('\')[4]
+    return ping_resp.communicate()[0].split('\n')[5][4:].split('/')[4]
 
 def main():
     pings = ['None']*len(worlds)
