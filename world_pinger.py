@@ -22,7 +22,7 @@ def main():
     # grab pings and write to file
     for world,ping in zip(worlds, pings):
         ping = ping_world(int(world))
-        temp = "World " + str(world) + ": " + ping + " <br> "
+        temp = "World " + str(world)[0:-2] + ": " + ping + " <br> "
         f.write(temp)
     f.close()
 
