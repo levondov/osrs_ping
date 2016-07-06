@@ -16,27 +16,47 @@ def ping_world(world):
 	world = world[0:len(world)-2]
     address = "oldschool" + world + ".runescape.com"
     ping_resp = subprocess.Popen(["/bin/ping", "-c1", "-w100", address], stdout=subprocess.PIPE)
-    return ping_resp.communicate()[0].split('\n')[5][4:].split('/')[4]
+    return float(ping_resp.communicate()[0].split('\n')[5][4:].split('/')[4])
 
 def main():
     pings = ['None']*len(worlds)
+    world_icon = ['None']*len(worlds)
+    world_best = ['None']*len(worlds)
+    total = ['None']*len(worlds)
 
-    # grab pings and write to file
+    # setup html code for world icons
     for i,world in enumerate(worlds):
+        # grab appropriate icons for each world
         if world_types[i] == 1:
-            world_type = "<img src=""images/f2p_icon.png""> World "
-        elif world_types[i] == 2:
-            world_type = "<img src=""images/p2p_icon.png""> World "
-        elif world_types[i] == 3:
-            world_type = "<img src=""images/p2p_icon.png""> (DMM) World "
+            world_icon[i] = "<img src=""images/f2p_icon.png""> "
+        elif world_icon[i] == 2:
+            world_type[i] = "<img src=""images/p2p_icon.png""> "
+        elif world_icon[i] == 3:
+            world_type[i] = "<img src=""images/p2p_icon.png""> (DMM) "
         else: # = 4
-            world_type = "<img src=""images/p2p_icon.png""> (PVP) World "
-
-        pings[i] = world_type + str(world)[0:-2] + ": " + ping_world(int(world)) + " ms <br> "
+            world_icon[i] = "<img src=""images/p2p_icon.png""> (PVP) "
+        
+    # grab pings for each world
+    for i,world in enumerate(worlds):
+        pings[i] = ping_world(int(world))
+        
+    # find best worlds, best = green, next 9 best = yellow, rest = red
+    temp = np.argsort(pings)
+    for i,world in enumerate(worlds):
+        if temp[i] == 0:
+            world_best[i] = "<font color=""green"">" + str(pings[i]) + "</font>"
+        elif temp[i] < 10:
+            world_best[i] = "<font color=""yellow"">" + str(pings[i]) + "</font>"
+        else:
+            world_best[i] = "<font color=""red"">" + str(pings[i]) + "</font>"
+    
+    # finally put it all together
+    for i,world in enumerate(worlds):
+        total[i] = world_icon + "World " + str(world[0:-2]) + ": " + world_best[i] + " ms <br>"
 
     f = open('test.txt', 'w')        
-    for ping in pings:
-	f.write(ping)
+    for each_world in total:
+	f.write(each_world)
     f.close()
 
 while True:
