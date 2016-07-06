@@ -29,10 +29,10 @@ def main():
         # grab appropriate icons for each world
         if world_types[i] == 1:
             world_icon[i] = "<img src=""images/f2p_icon.png""> "
-        elif world_icon[i] == 2:
-            world_type[i] = "<img src=""images/p2p_icon.png""> "
-        elif world_icon[i] == 3:
-            world_type[i] = "<img src=""images/p2p_icon.png""> (DMM) "
+        elif world_types[i] == 2:
+            world_icon[i] = "<img src=""images/p2p_icon.png""> "
+        elif world_types[i] == 3:
+            world_icon[i] = "<img src=""images/p2p_icon.png""> (DMM) "
         else: # = 4
             world_icon[i] = "<img src=""images/p2p_icon.png""> (PVP) "
         
@@ -52,7 +52,7 @@ def main():
     
     # finally put it all together
     for i,world in enumerate(worlds):
-        total[i] = world_icon + "World " + str(world[0:-2]) + ": " + world_best[i] + " ms <br>"
+        total[i] = world_icon[i] + "World " + str(world[0:-2]) + ": " + world_best[i] + " ms <br>"
 
     f = open('test.txt', 'w')        
     for each_world in total:
