@@ -8,7 +8,7 @@ worlds = np.delete(worlds, exceptions-1)
 
 def ping_world(world):
     address = "oldschool" + str(world) + ".runescape.com"
-    ping_resp = subprocess.Popen(["/bin/ping", "-c1", "-w100", address], stdout=subprocess.PIPE).stdout.read()
-    return ping_resp
+    ping_resp = subprocess.Popen(["/bin/ping", "-c1", "-w100", address], stdout=subprocess.PIPE)
+    return ping_resp.communicate()[0].split('\n')[5][4:]
 
 print ping_world(53)
