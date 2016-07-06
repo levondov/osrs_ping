@@ -43,18 +43,17 @@ def main():
     # find best worlds, best = green, next 9 best = yellow, rest = red
     temp = np.argsort(pings)
     for i,world in enumerate(worlds):
-        if i == 0:
-            world_best[temp[i]] = "<font color=""green"">" + str(pings[i]) + "</font>"
-        elif i < 10:
-            world_best[temp[i]] = "<font color=""yellow"">" + str(pings[i]) + "</font>"
+        if i < 10:
+            world_best[temp[i]] = "<font color=""green"">" + str(pings[temp[i]]) + "</font>"
         else:
-            world_best[temp[i]] = "<font color=""red"">" + str(pings[i]) + "</font>"
+            world_best[temp[i]] = "<font color=""red"">" + str(pings[temp[i]]) + "</font>"
     
     # finally put it all together
     for i,world in enumerate(worlds):
         total[i] = world_icon[i] + "World " + str(world)[0:-2] + ": " + world_best[i] + " ms <br>"
 
-    f = open('test.txt', 'w')        
+    # write to text file
+    f = open('test.txt', 'w')
     for each_world in total:
 	f.write(each_world)
     f.close()
