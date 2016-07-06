@@ -17,13 +17,15 @@ def ping_world(world):
     return ping_resp.communicate()[0].split('\n')[5][4:]
 
 def main():
-    pings = np.zeros(len(worlds))
-    f = open('test.txt', 'w')
+    pings = ['None']*len(worlds)
+
     # grab pings and write to file
-    for world,ping in zip(worlds, pings):
-        ping = ping_world(int(world))
-        temp = "World " + str(world)[0:-2] + ": " + ping + " <br> "
-        f.write(temp)
+    for i,world in enumerate(worlds):
+        pings[i] = "World " + str(world)[0:-2] + ": " + ping_world(int(world)) + " <br> "
+
+    f = open('test.txt', 'w')        
+    for ping in pings:
+	f.write(ping)
     f.close()
 
 while True:
